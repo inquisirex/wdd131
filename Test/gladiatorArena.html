@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Gladiator Roguelike</title>
+<style>
+body{margin:0;background:#111;color:white}
+canvas{display:block;margin:auto;background:#222}
+</style>
+</head>
+<body>
+
+<canvas id="game" width="900" height="500"></canvas>
+
+<script>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+/* ================= UTIL ================= */
+const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+
+function seek(unit,target,m=1){
+  const dx=target.x-unit.x;
+  const dy=target.y-unit.y;
+  const d=Math.hypot(dx,dy);
+  if(d===0) return;
+  unit.x+=(dx/d)*unit.speed*m;
+  unit.y+=(dy/d)*unit.speed*m;
+}
+
+function separate(a,b){
+  const d=dist(a,b);
+  const min=a.radius+b.radius;
+  if(d<min && d>0){
+    const dx=(a.x-b.x)/d;
+    const dy=(a.y-b.y)/d;
+    a.x+=dx*0.3;
+    a.y+=dy*0.3;
+    b.x-=dx*0.3;
+    b.y-=dy*0.3;
+  }
+}
+
+function applyKnockback(a,b,force){
+  const d=dist(a,b);
+  if(d===0) return;
+  const dx=(b.x-a.x)/d;
+  const dy=(b.y-a.y)/d;
+  b.x+=dx*force;
+  b.y+=dy*force;
+}
+
+function acquireNearest(unit,list){
+  let best=null, bestD=Infinity;
+  for(const t of list){
+    if(t.hp<=0) continue;
+    const d=dist(unit,t);
+    if(d<bestD){
+      bestD=d;
+      best=t;
+    }
+  }
+  return best;
+}
+
+/* ================= HITSCAN VISUALS ================= */
+let shots=[];
+
+function spawnShot(a,b,color="#fff"){
+  shots.push({
+    x1:a.x, y1:a.y,
+    x2:b.x, y2:b.y,
+    life:6,
+    color
+  });
+}
+
+function drawShots(){
+  for(const s of shots){
+    ctx.strokeStyle=s.color;
+    ctx.globalAlpha=s.life/6;
+    ctx.lineWidth=2;
+    ctx.beginPath();
+    ctx.moveTo(s.x1,s.y1);
+    ctx.lineTo(s.x2,s.y2);
+    ctx.stroke();
+    s.life--;
+  }
+  ctx.globalAlpha=1;
+  shots=shots.filter(s=>s.life>0);
+}
+
+/* ================= BASE ================= */
+class Unit{
+  constructor(x,y){
+    this.x=x; this.y=y;
+    this.radius=12;
+    this.hp=100; this.maxHp=100;
+    this.speed=0.8;
+    this.cooldown=0;
+    this.flash=0;
+    this.target=null;
+    this.retarget=0;
+  }
+
+  updateTarget(list){
+    if(!this.target || this.target.hp<=0 || this.retarget<=0){
+      this.target=acquireNearest(this,list);
+      this.retarget=60;
+    }
+    this.retarget--;
+  }
+
+  draw(color){
+    ctx.fillStyle=this.flash>0?"#fff":color;
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+    ctx.fill();
+
+    ctx.fillStyle="#400";
+    ctx.fillRect(this.x-12,this.y-18,24,4);
+    ctx.fillStyle="#0f0";
+    ctx.fillRect(this.x-12,this.y-18,24*(this.hp/this.maxHp),4);
+  }
+}
+
+/* ================= GLADIATORS ================= */
+class Spearman extends Unit{
+  constructor(x,y){
+    super(x,y);
+    this.range=50;
+    this.damage=14;
+    this.speed=0.6;
+  }
+  update(enemies){
+    this.updateTarget(enemies);
+    const enemy=this.target;
+    if(!enemy) return;
+
+    const d=dist(this,enemy);
+    if(d<=this.range){
+      if(this.cooldown<=0){
+        enemy.hp-=this.damage;
+        enemy.flash=6;
+        spawnShot(this,enemy,"#7cf");
+        applyKnockback(this,enemy,4);
+        seek(this,enemy,-0.12);
+        this.cooldown=40;
+      }
+    }else{
+      seek(this,enemy,1);
+    }
+    this.cooldown--;
+  }
+  draw(){super.draw("#4af")}
+}
+
+class Slinger extends Unit{
+  constructor(x,y){
+    super(x,y);
+    this.range=180;
+    this.damage=10;
+    this.ammo=3;
+    this.maxAmmo=3;
+    this.speed=0.9;
+    this.panicCD=0;
+  }
+
+  update(enemies){
+    this.updateTarget(enemies);
+    const enemy=this.target;
+    if(!enemy) return;
+
+    const d=dist(this,enemy);
+    const minDist=this.radius+enemy.radius+6;
+
+    if(d<minDist && this.panicCD<=0){
+      applyKnockback(enemy,this,3);
+      this.panicCD=20;
+      return;
+    }
+
+    if(d<this.range && this.ammo>0){
+      if(this.cooldown<=0){
+        enemy.hp-=this.damage;
+        enemy.flash=4;
+        spawnShot(this,enemy,"#ddd");
+        applyKnockback(this,enemy,0.8);
+        this.ammo--;
+        this.cooldown=30;
+      }
+      seek(this,enemy,-0.45);
+    }else{
+      seek(this,enemy,1);
+    }
+
+    this.cooldown--;
+    this.panicCD--;
+  }
+
+  draw(){
+    super.draw("#ccc");
+    ctx.fillStyle="#fff";
+    ctx.fillText(this.ammo,this.x-4,this.y+4);
+  }
+}
+
+class NetGladiator extends Unit{
+  constructor(x,y){
+    super(x,y);
+    this.damage=6;
+    this.netCD=0;
+  }
+  update(enemies){
+    this.updateTarget(enemies);
+    const enemy=this.target;
+    if(!enemy) return;
+
+    const d=dist(this,enemy);
+    if(this.netCD<=0 && d<60 && !enemy.net){
+      enemy.net=90;
+      enemy.netX=enemy.x;
+      enemy.netY=enemy.y;
+      spawnShot(this,enemy,"#fa4"); // hitscan for netting
+      this.netCD=180;
+    }
+
+    if(d>22){
+      seek(this,enemy,1);
+    }else if(this.cooldown<=0){
+      enemy.hp-=this.damage;
+      enemy.flash=4;
+      spawnShot(this,enemy,"#fa4"); // melee hitscan
+      applyKnockback(this,enemy,2);
+      this.cooldown=35;
+    }
+
+    this.cooldown--;
+    this.netCD--;
+  }
+  draw(){super.draw("#fa4")}
+}
+
+/* ================= ENEMY ================= */
+class Enemy extends Unit{
+  constructor(x,y){
+    super(x,y);
+    this.hp=60; this.maxHp=60;
+    this.damage=25;
+    this.speed=1;
+    this.net=0;
+    this.netX=0; this.netY=0;
+  }
+  update(gladiators){
+    this.updateTarget(gladiators);
+    const glad=this.target;
+    if(!glad) return;
+
+    if(this.net>0){
+      this.flash=Math.max(this.flash,3);
+      this.x+=(this.netX-this.x)*0.15;
+      this.y+=(this.netY-this.y)*0.15;
+      this.net--;
+      return;
+    }
+
+    const d=dist(this,glad);
+    if(d>22){
+      seek(this,glad,1);
+    }else if(this.cooldown<=0){
+      glad.hp-=this.damage;
+      glad.flash=4;
+      spawnShot(this,glad,"#f44");
+      applyKnockback(this,glad,2);
+      this.cooldown=60;
+    }
+    this.cooldown--;
+  }
+  draw(){super.draw("#f44")}
+}
+
+/* ================= GAME ================= */
+let round=1;
+let gladiators=[
+  new Spearman(150,200),
+  new Slinger(150,260),
+  new NetGladiator(150,320)
+];
+let enemies=[];
+
+function spawnRound(){
+  enemies=[];
+  for(let i=0;i<round;i++){
+    enemies.push(new Enemy(750+i*30,250+(Math.random()*80-40)));
+  }
+  gladiators.forEach(g=>{
+    if(g instanceof Slinger) g.ammo=g.maxAmmo;
+  });
+}
+spawnRound();
+
+/* ================= LOOP ================= */
+function loop(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  gladiators.forEach(g=>{
+    if(g.hp>0) g.update(enemies);
+    g.flash=Math.max(0,g.flash-1);
+  });
+
+  enemies.forEach(e=>{
+    if(e.hp>0) e.update(gladiators);
+    e.flash=Math.max(0,e.flash-1);
+  });
+
+  gladiators.forEach((a,i)=>{
+    gladiators.slice(i+1).forEach(b=>separate(a,b));
+  });
+
+  enemies.forEach((a,i)=>{
+    enemies.slice(i+1).forEach(b=>separate(a,b));
+  });
+
+  gladiators.forEach(g=>{
+    enemies.forEach(e=>{
+      if(g.hp>0 && e.hp>0) separate(g,e);
+    });
+  });
+
+  enemies=enemies.filter(e=>e.hp>0);
+  gladiators=gladiators.filter(g=>g.hp>0);
+
+  drawShots();
+
+  gladiators.forEach(g=>g.draw());
+  enemies.forEach(e=>e.draw());
+
+  ctx.fillText("Round "+round,10,20);
+  requestAnimationFrame(loop);
+}
+loop();
+</script>
+
+</body>
+</html>

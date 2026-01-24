@@ -1,0 +1,28 @@
+@media screen and (min-width: 600px) {
+    #menu {
+        display: none;
+        /* Hide hamburger icon */
+    }
+
+    nav {
+        display: block;
+        /* Always show nav on desktop */
+    }
+
+    .navigation {
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 2rem;
+    }
+
+    .navigation li a {
+        border: none;
+    }
+
+    .temple-grid {
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 columns for desktop */
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}

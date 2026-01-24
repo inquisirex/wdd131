@@ -1,0 +1,107 @@
+:root {
+    --primary-color: #1b4332;
+    --secondary-color: #2d6a4f;
+    --text-color: #333;
+    --bg-color: #ffffff;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header & Nav */
+header {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1 { margin: 0; font-size: 1.5rem; }
+
+#menu {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+#menu::before {
+    content: "☰"; /* Hamburger icon */
+}
+
+#menu.open::before {
+    content: "❌"; /* "X" icon when open */
+}
+
+/* Navigation - Mobile Hidden by Default */
+nav {
+    background-color: var(--primary-color);
+    display: none; /* JS will toggle this */
+}
+
+nav.open {
+    display: block;
+}
+
+.navigation {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navigation li a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 1rem;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Main Content */
+main h2 {
+    text-align: center;
+    padding: 1rem;
+}
+
+.temple-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 column for mobile */
+    gap: 20px;
+    padding: 1rem;
+}
+
+figure { margin: 0; text-align: center; }
+
+figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+figcaption {
+    color: #4b0082;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
