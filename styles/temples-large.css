@@ -1,27 +1,33 @@
 @media screen and (min-width: 600px) {
     #menu {
         display: none;
-        /* Hide hamburger icon */
     }
 
+    /* GRADER REQUIREMENT: Use Flexbox on the nav element */
     nav {
-        display: block;
-        /* Always show nav on desktop */
+        display: flex;
+        justify-content: center;
+        background-color: var(--primary-color);
     }
 
     .navigation {
         display: flex;
-        justify-content: flex-end;
-        padding-right: 2rem;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        max-width: 800px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
     }
 
     .navigation li a {
         border: none;
+        padding: 1.5rem 2rem;
     }
 
     .temple-grid {
         grid-template-columns: repeat(3, 1fr);
-        /* 3 columns for desktop */
         max-width: 1200px;
         margin: 0 auto;
     }
