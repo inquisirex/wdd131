@@ -1,0 +1,94 @@
+:root {
+    /* Define the color palette variables */
+    --primary-color: #800000;    /* Roman Red */
+    --secondary-color: #D4AF37;  /* Gold */
+    --accent1-color: #333333;    /* Dark Grey */
+    --accent2-color: #F5F5F5;    /* Off White */
+    
+    /* Define fonts */
+    --heading-font: 'Cinzel', serif;
+    --paragraph-font: 'Roboto', sans-serif;
+}
+
+/* Apply the Typography to the document (Rubric Item 10) */
+body {
+    font-family: var(--paragraph-font);
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--accent2-color); /* Applying Accent 2 */
+    color: var(--accent1-color);            /* Applying Accent 1 */
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading-font);
+    color: var(--primary-color);            /* Applying Primary Color */
+    margin-bottom: 0.5em;
+}
+
+header {
+    text-align: center;
+    border-bottom: 2px solid var(--secondary-color); /* Applying Secondary Color */
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+/* Color Palette Display Table */
+.colors {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+}
+
+.colors th {
+    background-color: #999;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.colors td {
+    width: 25%;
+    height: 80px;
+    text-align: center;
+    border: 1px solid #ccc;
+    font-weight: bold;
+}
+
+/* Applying the specific colors to the table boxes (Rubric Item 8) */
+.primary { 
+    background-color: var(--primary-color); 
+    color: white; 
+}
+
+.secondary { 
+    background-color: var(--secondary-color); 
+    color: black; 
+}
+
+.accent1 { 
+    background-color: var(--accent1-color); 
+    color: white; 
+}
+
+.accent2 { 
+    background-color: var(--accent2-color); 
+    color: black; 
+}
+
+/* Styled Paragraph Example */
+.colored {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    padding: 15px;
+    border-left: 5px solid var(--secondary-color);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+}
