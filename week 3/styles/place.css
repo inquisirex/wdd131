@@ -22,10 +22,6 @@ header {
     padding: 1.5rem;
 }
 
-h1::after {
-    content: " 🇲🇽"; /* This adds the flag after the text */
-    font-size: 1.2rem; /* Optional: makes the flag slightly smaller/larger */
-}
 
 main {
     max-width: 900px;
