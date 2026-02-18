@@ -1,0 +1,144 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+header, footer {
+    background-color: #310a31; /* Dark Purple from screenshot */
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Form Container Card */
+form {
+    background-color: #d8d1d8; /* Light purple/gray background */
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Form Elements */
+fieldset {
+    border: none;
+    margin: 1rem 0;
+    padding: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #000;
+}
+
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+textarea {
+    height: 100px;
+}
+
+/* Checkboxes styling */
+.checkbox-group label {
+    font-weight: normal;
+    display: inline-block;
+    vertical-align: middle;
+}
+.checkbox-group input {
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Submit Button */
+button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: #eee;
+    border: 1px solid #999;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #ddd;
+}
+
+/* Star Rating Styling */
+.rating {
+    display: flex;
+    flex-direction: row-reverse; /* Allows selecting previous stars */
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+.rating input {
+    appearance: none; /* Hide default radio button */
+    -webkit-appearance: none;
+}
+
+.rating label {
+    cursor: pointer;
+    font-size: 2rem;
+    color: #fff; /* Empty star color (white circles in screenshot) */
+    text-shadow: 0 0 2px #000;
+}
+
+.rating label:before {
+    content: '☆'; /* Unicode Star */
+    background-color: white;
+    border-radius: 50%;
+    padding: 5px;
+    color: black; /* Outline */
+}
+
+/* Logic for checking stars */
+.rating input:checked ~ label:before {
+    content: '★'; 
+    background-color: #310a31; /* Filled star background */
+    color: gold; 
+}
+
+.rating input:checked + label:before {
+     content: '★';
+     background-color: #310a31;
+     color: gold;
+}
+
+/* Required field visual cue (Assignment requirement) */
+.required {
+    color: #a00000;
+}
+
+/* Footer styling */
+footer p {
+    font-size: 0.9rem;
+    margin: 5px 0;
+}
