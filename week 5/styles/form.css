@@ -167,3 +167,26 @@ footer p {
 .return-link:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 600px) {
+    /* Adjust the main container margin for smaller screens */
+    main {
+        margin: 1rem auto;
+        padding: 0 0.5rem;
+    }
+
+    /* Reduce padding inside the form to save space */
+    form {
+        padding: 1rem;
+    }
+    
+    /* Make the title slightly smaller on mobile */
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    /* Ensure the star rating fits on narrow screens */
+    .rating label {
+        font-size: 1.5rem;
+    }
+}
