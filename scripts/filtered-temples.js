@@ -83,7 +83,9 @@ const temples = [
     location: "Le Chesnay, France",
     dedicated: "2017, May, 21",
     area: 44175,
-    imageUrl: "https://content.churchofjesuschrist.org/templesldsorg/bc/Temples/photo-galleries/paris-france/2018/400x250/Paris-France-Temple02.jpg"  },
+    imageUrl: 
+    "https://content.churchofjesuschrist.org/templesldsorg/bc/Temples/photo-galleries/aba-nigeria/400x250/aba-nigeria-temple-lds-273999-wallpaper.jpg"
+  },
   {
     templeName: "Tokyo Japan",
     location: "Tokyo, Japan",

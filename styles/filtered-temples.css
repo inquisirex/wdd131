@@ -55,9 +55,9 @@ nav {
 
 /* Hover Effect Requirement */
 .navigation a:hover {
-    background-color: #e67e22; /* High contrast hover color */
-    border-radius: 4px;
+    background-color: #a04000; /* ✅ Darker Orange (Passes AA) */
     color: #fff;
+    border-radius: 4px;
 }
 
 /* --- MAIN LAYOUT --- */
@@ -115,7 +115,7 @@ main h2 {
 
 .card-content span {
     font-weight: bold;
-    color: #e67e22;
+    color: #a04000; /* ✅ Darker Orange (Passes AA) */
 }
 
 .card img {
