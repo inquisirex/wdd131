@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visit | Colosseum Living History Museum</title>
+    <meta name="description" content="Plan your visit to the Colosseum. Ticket prices, membership form, and hours.">
+    <meta name="author" content="Rodolfo Velasco">
+    <link rel="stylesheet" href="styles/base.css">
+    <script src="scripts/main.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="logo-box">
+            <img src="images/logo.png" alt="Museum Logo">
+        </div>
+        <nav>
+            <button id="menuButton">☰</button>
+            <ul id="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="roman.html">History</a></li> 
+                <li><a href="visit.html">Plan Your Visit</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Plan Your Visit</h1>
+        
+        <section id="ticket-info">
+            <h2>Current Ticket Prices</h2>
+            <div id="ticket-container">
+                </div>
+        </section>
+
+        <section class="form-section">
+            <h2>Membership Sign Up</h2>
+            <form action="record.html" method="get">
+                <label for="fname">First Name:</label>
+                <input type="text" id="fname" name="fname" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="example@gmail.com" required>
+
+                <label for="date">Preferred Visit Date:</label>
+                <input type="date" id="date" name="date">
+
+                <label>Membership Tier:</label>
+                <select name="tier" id="tier">
+                    <option value="standard">Standard (Citizen)</option>
+                    <option value="gold">Gold (Senator)</option>
+                    <option value="platinum">Platinum (Emperor)</option>
+                </select>
+
+                <label>Feedback/Questions:</label>
+                <textarea id="feedback" name="feedback" rows="4"></textarea>
+
+                <button type="submit">Join the Empire</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Colosseum Living History Museum</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,322 @@
+:root {
+    --primary: #800000;    /* Roman Red */
+    --secondary: #D4AF37;  /* Gold */
+    --text-dark: #333333;
+    --text-light: #F5F5F5;
+    --font-head: 'Cinzel', serif;
+    --font-body: 'Roboto', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 0;
+    color: var(--text-dark);
+    background-color: var(--text-light);
+}
+
+h1, h2, h3 {
+    font-family: var(--font-head);
+    color: var(--primary);
+}
+
+/* --- Header & Nav (Mobile First) --- */
+header {
+    position: relative;
+    background-color: #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 3px solid var(--primary);
+    /* NEW: This forces the header (and its dropdown) to sit ON TOP of the hero image */
+    z-index: 2000; 
+}
+
+.logo-box img {
+    width: 60px; /* Small logo for header */
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+nav button {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--primary);
+}
+
+/* Hide menu by default on mobile */
+nav ul {
+    display: none; 
+    list-style: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    background: #fff;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* This class is toggled by JS to show menu */
+nav ul.open {
+    display: block;
+}
+
+nav a {
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+nav a:hover {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* --- Hero Section --- */
+.hero {
+    width: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    /* Removed line-height: 0; because it was squishing the text */
+}
+
+.hero img {
+    width: 100%;
+    height: 400px;
+    display: block; /* This successfully removes the extra space below the image! */
+    object-fit: cover;
+}
+
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, .8); 
+    padding: 15px;
+    border: 2px solid var(--secondary);
+    color: #ddd;
+    width: 80%; 
+    text-align: center; 
+    line-height: 1.5; /* Added: Gives your text nice breathing room */
+}
+
+.hero-text h1 {
+    font-size: 1.5rem; 
+    margin: 0 0 10px 0;
+}
+
+.hero-text p {
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* --- Main Content --- */
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.home-grid {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.home-grid h2 {
+    font-size: 2.5rem; /* Much larger title */
+    margin-bottom: 10px;
+}
+
+.home-grid p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 800px; /* Keeps text from getting too wide to read */
+    margin: 0 auto 30px auto;
+}
+
+/* Constrain the image so it's not "massive" compared to text */
+.home-grid img {
+    width: 100%;
+    max-width: 800px; /* Caps the image width */
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    margin: 0 auto;
+    display: block;
+}
+
+/* The "Red Box" from your wireframe */
+.call-to-action {
+    background-color: var(--primary);
+    color: white;
+    padding: 40px;
+    text-align: center;
+    margin-top: 40px;
+    border-radius: 8px;
+}
+
+.call-to-action h3 {
+    color: var(--secondary);
+    margin-top: 0;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--secondary);
+    color: #000;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+/* --- Form Styles --- */
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+input, select, textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    background-color: var(--primary);
+    color: white;
+    padding: 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.history-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile: 1 column */
+    gap: 20px;
+}
+
+.card {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    border-bottom: 2px solid var(--secondary);
+}
+
+.sidebar {
+    background-color: var(--primary);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.sidebar h3 {
+    color: var(--secondary);
+    border-bottom: 1px solid white;
+    padding-bottom: 10px;
+}
+
+.sidebar ul {
+    list-style-type: square;
+    padding-left: 20px;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+}
+
+/* --- Footer --- */
+footer {
+    background-color: var(--primary); /* Uses your Roman Red variable */
+    color: white;                     /* Makes the text white */
+    text-align: center;               /* Centers the text perfectly */
+    padding: 20px;                    /* Gives the text some breathing room inside the red box */
+}
+
+@media (min-width: 768px) {
+    
+    /* 1. LAYOUT: Make the Home Page Grid work side-by-side */
+    .home-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Text left, Image right */
+        gap: 40px;
+        align-items: center;
+        text-align: left; /* Align text to left on big screens */
+    }
+
+    .home-grid img {
+        margin: 0; 
+        max-width: 100%;
+    }
+
+    /* 2. HISTORY PAGE: Layout fix */
+    .history-grid {
+        grid-template-columns: 2fr 1fr; 
+    }
+    
+    .card:first-child {
+        grid-column: 1 / -1; 
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .card:first-child img {
+        max-width: 400px;
+    }
+
+    /* 3. HERO FIX: Make the image taller so the text fits! */
+    .hero img {
+        height: 600px; /* Increased from 400px so it's not a tiny strip */
+    }
+
+    .hero-text {
+        width: auto; /* Let the box size itself to fit the text */
+        max-width: 80%; /* Don't let it get wider than 80% of screen */
+        padding: 40px; /* Add more breathing room */
+    }
+
+    .hero-text h1 {
+        font-size: 4rem; /* Big majestic text */
+    }
+
+    /* 4. NAVIGATION: Hide hamburger, show row of links */
+    nav button {
+        display: none; 
+    }
+
+    nav ul {
+        position: static;
+        display: flex;
+        box-shadow: none;
+        width: auto;
+        background: none; 
+    }
+
+    nav a {
+        padding: 0 20px;
+        color: var(--text-dark); 
+    }
+}
