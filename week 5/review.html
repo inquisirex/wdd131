@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review Submitted</title>
+    <meta name="description" content="Thank you for submitting your product review. We value your feedback.">
+    <meta name="author" content="Your Name Here">
     <link rel="stylesheet" href="styles/form.css">
     <script src="scripts/form.js" defer></script>
 </head>
@@ -14,14 +16,13 @@
     </header>
 
     <main>
-        <div style="background-color: #d8d1d8; padding: 2rem; border-radius: 5px; text-align: center;">
+        <div class="confirmation-box">
             <h2>Thank you for your review!</h2>
             <p>Your input is valuable to us.</p>
             
-            <p>You have submitted <span id="reviewCount" style="font-weight:bold; color: #310a31;">0</span> reviews.</p>
+            <p>You have submitted <span id="reviewCount" class="review-count">0</span> reviews.</p>
             
-            <br>
-            <a href="form.html" style="text-decoration: none; color: #310a31; font-weight: bold;">Submit another review</a>
+            <a href="form.html" class="return-link">Submit another review</a>
         </div>
     </main>
 

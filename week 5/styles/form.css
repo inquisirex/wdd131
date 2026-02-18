@@ -7,7 +7,7 @@ body {
 }
 
 header, footer {
-    background-color: #310a31; /* Dark Purple from screenshot */
+    background-color: #310a31;
     color: white;
     text-align: center;
     padding: 1rem;
@@ -25,7 +25,7 @@ main {
 
 /* Form Container Card */
 form {
-    background-color: #d8d1d8; /* Light purple/gray background */
+    background-color: #d8d1d8;
     padding: 2rem;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -53,7 +53,7 @@ textarea {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    box-sizing: border-box;
     font-size: 1rem;
     margin-bottom: 1rem;
 }
@@ -93,36 +93,35 @@ button[type="submit"]:hover {
 /* Star Rating Styling */
 .rating {
     display: flex;
-    flex-direction: row-reverse; /* Allows selecting previous stars */
+    flex-direction: row-reverse;
     justify-content: flex-end;
     gap: 10px;
     margin-bottom: 1rem;
 }
 
 .rating input {
-    appearance: none; /* Hide default radio button */
+    appearance: none;
     -webkit-appearance: none;
 }
 
 .rating label {
     cursor: pointer;
     font-size: 2rem;
-    color: #fff; /* Empty star color (white circles in screenshot) */
+    color: #fff;
     text-shadow: 0 0 2px #000;
 }
 
 .rating label:before {
-    content: '☆'; /* Unicode Star */
+    content: '☆';
     background-color: white;
     border-radius: 50%;
     padding: 5px;
-    color: black; /* Outline */
+    color: black;
 }
 
-/* Logic for checking stars */
 .rating input:checked ~ label:before {
     content: '★'; 
-    background-color: #310a31; /* Filled star background */
+    background-color: #310a31;
     color: gold; 
 }
 
@@ -132,7 +131,7 @@ button[type="submit"]:hover {
      color: gold;
 }
 
-/* Required field visual cue (Assignment requirement) */
+/* Required field visual cue */
 .required {
     color: #a00000;
 }
@@ -141,4 +140,30 @@ button[type="submit"]:hover {
 footer p {
     font-size: 0.9rem;
     margin: 5px 0;
+}
+
+/* --- NEW: Review Page Styles (Removed Inline Styles) --- */
+.confirmation-box {
+    background-color: #d8d1d8;
+    padding: 2rem;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.review-count {
+    font-weight: bold;
+    color: #310a31;
+}
+
+.return-link {
+    text-decoration: none;
+    color: #310a31;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+.return-link:hover {
+    text-decoration: underline;
 }
